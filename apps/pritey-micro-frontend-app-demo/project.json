@@ -1,0 +1,89 @@
+{
+  "name": "pritey-micro-frontend-app-demo",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/pritey-micro-frontend-app-demo/src",
+  "prefix": "pritey-monorepo-app",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/pritey-micro-frontend-app-demo",
+        "index": "apps/pritey-micro-frontend-app-demo/src/index.html",
+        "main": "apps/pritey-micro-frontend-app-demo/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/pritey-micro-frontend-app-demo/tsconfig.app.json",
+        "assets": [
+          "apps/pritey-micro-frontend-app-demo/src/favicon.ico",
+          "apps/pritey-micro-frontend-app-demo/src/assets"
+        ],
+        "styles": ["apps/pritey-micro-frontend-app-demo/src/styles.css"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "pritey-micro-frontend-app-demo:build:production"
+        },
+        "development": {
+          "browserTarget": "pritey-micro-frontend-app-demo:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "pritey-micro-frontend-app-demo:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "apps/pritey-micro-frontend-app-demo/**/*.ts",
+          "apps/pritey-micro-frontend-app-demo/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/pritey-micro-frontend-app-demo/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
